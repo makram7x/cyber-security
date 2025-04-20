@@ -16,7 +16,7 @@ const arTranslations = {
     more: 'المزيد'
   },
   footer: {
-    copyright: '© 2525. جميع الحقوق محفوظة',
+    copyright: '© 2025. جميع الحقوق محفوظة',
     newsletter: 'النشرة الإخبارية',
     subscribe: 'اشترك',
     followUs: 'تابعنا'

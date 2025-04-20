@@ -11,8 +11,6 @@ const queryClient = new QueryClient();
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
 const News = lazy(() => import('./pages/News'));
-const Reports = lazy(() => import('./pages/Reports'));
-const Articles = lazy(() => import('./pages/Articles'));
 const Events = lazy(() => import('./pages/Events'));
 const Media = lazy(() => import('./pages/Media'));
 const About = lazy(() => import('./pages/About'));
@@ -38,8 +36,6 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/news/*" element={<News />} />
-                <Route path="/reports/*" element={<Reports />} />
-                <Route path="/articles/*" element={<Articles />} />
                 <Route path="/events/*" element={<Events />} />
                 <Route path="/media/*" element={<Media />} />
                 <Route path="/about" element={<About />} />

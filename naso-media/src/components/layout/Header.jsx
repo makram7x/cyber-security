@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react'; // Added useState
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -76,31 +77,6 @@ const NavLink = styled(Link)`
   }
 `;
 
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-`;
-
-const SearchInput = styled.input`
-  background-color: rgba(0, 30, 40, 0.7);
-  border: 1px solid rgba(0, 230, 230, 0.5);
-  border-radius: 20px;
-  color: #ffffff;
-  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
-  font-family: ${({ theme }) => theme.typography.fonts.body};
-  width: 250px;
-
-  &::placeholder {
-    color: #83d0d0;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #00e6e6;
-  }
-`;
-
 const MobileMenuButton = styled.button`
   display: none;
   background: none;
@@ -115,38 +91,81 @@ const MobileMenuButton = styled.button`
   }
 `;
 
+const MobileNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+  position: absolute;
+  top: 100%; // Position below the header
+  left: 0;
+  right: 0;
+  background-color: #001a2f; // Slightly different background
+  padding: ${({ theme }) => theme.spacing.md} 0;
+  border-top: 1px solid rgba(0, 230, 230, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: ${props => props.isOpen ? 'flex' : 'none'}; // Control visibility
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none; // Hide on larger screens
+  }
+`;
+
+const MobileNavLink = styled(NavLink)`
+  width: 100%;
+  text-align: center;
+  padding: ${({ theme }) => theme.spacing.sm} 0;
+
+  &::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;
+
+
 const Header = () => {
   const { t } = useTranslation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <HeaderContainer>
       <HeaderContent>
         <Logo to="/">
-          <img src="/logo.png" alt="Naso Media Channel" />
+          <img 
+            src="/logo.png" 
+            alt="Naso Media Channel" 
+            style={{ background: 'white', padding: '4px', borderRadius: '4px' }}
+          />
         </Logo>
 
         <Nav>
           <NavLink to="/">{t('common.home')}</NavLink>
           <NavLink to="/news">{t('common.news')}</NavLink>
-          <NavLink to="/reports">{t('common.reports')}</NavLink>
-          <NavLink to="/articles">{t('common.articles')}</NavLink>
           <NavLink to="/events">{t('common.events')}</NavLink>
           <NavLink to="/media">{t('common.media')}</NavLink>
           <NavLink to="/about">{t('common.about')}</NavLink>
         </Nav>
 
-        <SearchContainer>
-          <SearchInput 
-            type="text" 
-            placeholder={t('common.search')}
-            aria-label={t('common.search')}
-          />
-        </SearchContainer>
-
-        <MobileMenuButton aria-label={t('common.menu')}>
-          ☰
+        <MobileMenuButton aria-label={t('common.menu')} onClick={toggleMobileMenu}> {/* Added onClick handler */}
+          {isMobileMenuOpen ? '✕' : '☰'}
         </MobileMenuButton>
       </HeaderContent>
+      {/* Mobile Navigation Menu */}
+      <MobileNav isOpen={isMobileMenuOpen}>
+        <MobileNavLink to="/" onClick={closeMobileMenu}>{t('common.home')}</MobileNavLink>
+        <MobileNavLink to="/news" onClick={closeMobileMenu}>{t('common.news')}</MobileNavLink>
+        <MobileNavLink to="/events" onClick={closeMobileMenu}>{t('common.events')}</MobileNavLink>
+        <MobileNavLink to="/media" onClick={closeMobileMenu}>{t('common.media')}</MobileNavLink>
+        <MobileNavLink to="/about" onClick={closeMobileMenu}>{t('common.about')}</MobileNavLink>
+      </MobileNav>
     </HeaderContainer>
   );
 };

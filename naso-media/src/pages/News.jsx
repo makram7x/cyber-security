@@ -1,12 +1,7 @@
 import styled from "@emotion/styled";
+import { newsItems } from "../data/newsData"; // Import news data
 
-// These image URLs should be replaced with your actual images
-const IMAGES = {
-  securityLock: "/images/security-lock.jpg",
-  hacker: "/images/hacker.jpg",
-  codingLaptop: "/images/coding-laptop.jpg",
-  codeScreen: "/images/code-screen.jpg",
-};
+// Removed local IMAGES constant as images are in newsData
 
 const Container = styled.div`
   padding: 2rem;
@@ -99,70 +94,23 @@ const LayoutColumn = styled.div`
   flex: ${(props) => props.width || 1};
 `;
 
+// Removed local newsItems definition, using imported data
+
 const News = () => {
   return (
     <Container>
-      <NewsSection>
-        <TextContent>
-          <SectionTitle>أفضل ممارسات للأمان</SectionTitle>
-          <SectionText>
-            هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-            القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في
-            الصفحة التي يقرأها.
-          </SectionText>
-        </TextContent>
-        <ImageContainer>
-          <img src={IMAGES.securityLock} alt="ممارسات الأمان" />
-        </ImageContainer>
-      </NewsSection>
-
-      <NewsSection>
-        <TextContent>
-          <SectionTitle>أفضل ممارسات للأمان</SectionTitle>
-          <SectionText>
-            هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-            القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في
-            الصفحة التي يقرأها.
-          </SectionText>
-        </TextContent>
-        <ImageContainer>
-          <img src={IMAGES.codingLaptop} alt="برمجة آمنة" />
-        </ImageContainer>
-      </NewsSection>
-
-      <NewsSection>
-        <TextContent>
-          <SectionTitle>أفضل ممارسات للأمان</SectionTitle>
-          <SectionText>
-            هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي
-            القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في
-            الصفحة التي يقرأها.
-          </SectionText>
-        </TextContent>
-        <ImageContainer>
-          <img src={IMAGES.codeScreen} alt="شاشة برمجة" />
-        </ImageContainer>
-      </NewsSection>
-
-      <LayoutRow>
-        <LayoutColumn width={1}>
-          <OctagonalBox>
-            <SectionTitle>أفضل ممارسات للأمان</SectionTitle>
-            <SectionText>
-              هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-              سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات
-              في الصفحة التي يقرأها. هناك حقيقة مثبتة منذ زمن طويل وهي أن
-              المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي
-              للنص أو شكل توضع الفقرات في الصفحة التي يقرأها.
-            </SectionText>
-          </OctagonalBox>
-        </LayoutColumn>
-        <LayoutColumn width={2}>
-          <FeaturedImageContainer>
-            <img src={IMAGES.hacker} alt="قرصنة" />
-          </FeaturedImageContainer>
-        </LayoutColumn>
-      </LayoutRow>
+      {/* News Items Provided by User */}
+      {newsItems.map((item, index) => (
+        <NewsSection key={index} reversed={index % 2 !== 0}> {/* Alternate layout */}
+          <TextContent>
+            <SectionTitle>{item.title}</SectionTitle>
+            <SectionText>{item.text}</SectionText>
+          </TextContent>
+          <ImageContainer>
+            <img src={item.image} alt={item.alt} />
+          </ImageContainer>
+        </NewsSection>
+      ))}
     </Container>
   );
 };

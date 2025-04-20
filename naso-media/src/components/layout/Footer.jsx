@@ -16,16 +16,12 @@ const FooterContent = styled.div`
 
 const FooterGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr; /* Changed from 4 columns to 1 */
   gap: ${({ theme }) => theme.spacing.xl};
+  justify-items: center; /* Center the single column */
+  text-align: center; /* Center text within the column */
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    grid-template-columns: 1fr;
-  }
+  /* Removed responsive grid changes as it's now always 1 column */
 `;
 
 const FooterSection = styled.div`
@@ -145,7 +141,7 @@ const Footer = () => {
         <FooterGrid>
           <FooterSection>
             <h3>{t('common.about')}</h3>
-            <p>Naso Media Channel - المنصة الإعلامية الرائدة في تقديم المحتوى العربي</p>
+            <FooterLink to="/">Naso Media Channel - المنصة الإعلامية الرائدة في تقديم المحتوى العربي</FooterLink>
             <SocialLinks>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">𝕏</a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">f</a>
@@ -154,43 +150,11 @@ const Footer = () => {
             </SocialLinks>
           </FooterSection>
 
-          <FooterSection>
-            <h3>{t('common.news')}</h3>
-            <ul>
-              <li><FooterLink to="/news/latest">آخر الأخبار</FooterLink></li>
-              <li><FooterLink to="/news/politics">السياسة</FooterLink></li>
-              <li><FooterLink to="/news/economy">الاقتصاد</FooterLink></li>
-              <li><FooterLink to="/news/technology">التكنولوجيا</FooterLink></li>
-            </ul>
-          </FooterSection>
-
-          <FooterSection>
-            <h3>{t('common.media')}</h3>
-            <ul>
-              <li><FooterLink to="/media/photos">معرض الصور</FooterLink></li>
-              <li><FooterLink to="/media/videos">مكتبة الفيديو</FooterLink></li>
-              <li><FooterLink to="/media/infographics">انفوجرافيك</FooterLink></li>
-            </ul>
-          </FooterSection>
-
-          <FooterSection>
-            <h3>{t('footer.newsletter')}</h3>
-            <p>اشترك في نشرتنا الإخبارية للحصول على آخر الأخبار والتحديثات</p>
-            <NewsletterForm>
-              <NewsletterInput 
-                type="email" 
-                placeholder="البريد الإلكتروني" 
-                aria-label="البريد الإلكتروني"
-              />
-              <SubscribeButton type="submit">
-                {t('footer.subscribe')}
-              </SubscribeButton>
-            </NewsletterForm>
-          </FooterSection>
+          {/* Removed News, Media, and Newsletter sections */}
         </FooterGrid>
 
         <Copyright>
-          <p>{t('footer.copyright')} - Mr. Khalifa Nasser - Media professional for Naso Channel</p>
+          <p>{t('footer.copyright')}</p> {/* Removed extra hardcoded text */}
         </Copyright>
       </FooterContent>
     </FooterContainer>
